@@ -1,0 +1,96 @@
+<mvc:View displayBlock="true" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form"
+	xmlns="sap.m" controllerName="opensap.myapp.controller.App">
+	<App>
+		<pages>
+			<Page title="openSAP - Developing with SAPUI5">
+				<content>
+					<IconTabBar id="idTopLevelIconTabBar" selectedKey="db" class="sapUiResponsiveContentPadding">
+						<items>
+							<IconTabFilter id="start" text="{i18n>gettingStartedFilter}">
+								<Carousel>
+									<pages>
+										<Image src="https://www.geodus.com/globe-map/tresgrand/geo_wb34083.jpg" height="400px"/>
+										<Image
+											src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Wikipedia_Hello_World_Graphic.svg/2000px-Wikipedia_Hello_World_Graphic.svg.png"
+											height="400px"/>
+									</pages>
+								</Carousel>
+								<Button text="{i18n>showHelloButtonText}" press="onShowHello"/>
+								<Input
+									value="{ path: 'helloPanel>/recipient/amount', type: 'sap.ui.model.type.Float', formatOptions: {minFractionDigits: 2}, constraints: {maximum : 3000} }"
+									description="Hello {helloPanel>/recipient/name}" valueLiveUpdate="false" width="60%"/>
+							</IconTabFilter>
+							<IconTabFilter id="layouts" text="{i18n>layoutFilter}">
+								<MessageStrip type="Information" showIcon="true" text="Here's a Form Layout inside an Icon Tab Bar …"/>
+								<f:SimpleForm id="simpleFormChange" title="Address" editable="true" class="editableForm sapUiSmallMarginTopBottom">
+									<f:content>
+										<Label text="{i18n>layoutFormName}"/>
+										<Input value="{address>/Name}"/>
+										<Label text="{i18n>layoutFormStreet}"/>
+										<Input value="{address>/Street}"/>
+										<Label text="{i18n>layoutFormHouseNumber}"/>
+										<Input value="{address>/HouseNumber}"/>
+										<Label text="{i18n>layoutFormZIPCode}"/>
+										<Input value="{address>/ZIPCode}"/>
+										<Label text="{i18n>layoutFormCity}"/>
+										<Input value="{address>/City}"/>
+										<Label text="{i18n>layoutFormCountry}"/>
+										<Select>
+											<items>
+												<core:Item text="{i18n>layoutCountryGermany}"/>
+												<core:Item text="{i18n>layoutCountryUSA}"/>
+												<core:Item text="{i18n>layoutCountryEngland}"/>
+											</items>
+										</Select>
+									</f:content>
+								</f:SimpleForm>
+								<Toolbar class="sapUiSmallMarginTopBottom">
+									<ToolbarSpacer/>
+									<Button text="{i18n>layoutPublishButton}" icon="sap-icon://outbox" type="Accept"/>
+									<Button text="{i18n>layoutDraftButton}" icon="sap-icon://save"/>
+								</Toolbar>
+							</IconTabFilter>
+							<IconTabFilter text="{i18n>dataBindingFilter}" key="db">
+								<content>
+									<List id="productsList"
+										items="{ path : '/ProductSet', parameters : { expand: 'ToSupplier' }, sorter : { path : 'Category', group : true } }" growing="true"
+										growingThreshold="5" growingScrollToLoad="false">
+										<headerToolbar>
+											<Toolbar>
+												<Title text="{i18n>productListTitle}"/>
+												<ToolbarSpacer/>
+												<SearchField width="50%" search="onFilterProducts"/>
+											</Toolbar>
+										</headerToolbar>
+										<items>
+											<ObjectListItem press="onItemSelected" type="Active" intro="{ProductID}" title="{Name}"
+												number="{ parts: [ {path: 'Price'}, {path: 'CurrencyCode'} ], type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: false } }"
+												numberState="{= ${Price} > 10 ? 'Error' : 'Success'}" numberUnit="{CurrencyCode}">
+												<firstStatus>
+													<ObjectStatus text="{ parts : [ {path :'WeightUnit'}, {path :'WeightMeasure'} ], formatter : '.formatter.delivery' }"/>
+												</firstStatus>
+												<secondStatus>
+													<ObjectStatus
+														title="{i18n>statusDeliveryFrom}"
+														text="{ToSupplier/Address/City}"/>
+												</secondStatus>
+											</ObjectListItem>
+										</items>
+									</List>
+									<Panel id="productDetailsPanel" headerText="{i18n>productDetailPanelHeader}" visible="false">
+										<l:Grid>
+											<Text text="{i18n>productDetailPanelID}: {ProductID}"/>
+											<Text text="{i18n>productDetailPanelName}: {Name}"/>
+											<Text text="{i18n>productDetailPanelDescription}:\n {Description}"/>
+											<Text text="{i18n>productDetailPanelPrice}: {Price}"/>
+										</l:Grid>
+									</Panel>
+								</content>
+							</IconTabFilter>
+						</items>
+					</IconTabBar>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>
