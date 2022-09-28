@@ -65,7 +65,7 @@
 										<items>
 											<ObjectListItem press="onItemSelected" type="Active" intro="{ProductID}" title="{Name}"
 												number="{ parts: [ {path: 'Price'}, {path: 'CurrencyCode'} ], type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: false } }"
-												numberState="{= ${Price} > 10 ? 'Error' : 'Success'}" numberUnit="{CurrencyCode}">
+												numberState="{= ${Price} > 500 ? 'Error' : 'Success'}" numberUnit="{CurrencyCode}">
 												<firstStatus>
 													<ObjectStatus text="{ parts : [ {path :'WeightUnit'}, {path :'WeightMeasure'} ], formatter : '.formatter.delivery' }"/>
 												</firstStatus>
